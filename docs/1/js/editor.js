@@ -54,8 +54,10 @@ console.log(document.querySelector('#div-0').textContent);`,
         document.querySelector(`#web-editor-result`).style.display = isError ? 'none' : 'block';
     }
     #log(...args) {document.querySelector(`#web-editor-log`).value += [...args].join(' ');}
-    #assert() {
-        document.querySelector(`#web-editor-log`).value += 
+    #assert(...args) {
+        this._assert.count++;
+        if ('boolean'!==typeof args[0]){throw new TypeError(`console.assert()の引数は真偽値であるべきです。`)}
+        document.querySelector(`#web-editor-log`).value += `Assertion failed\n`;
     }
 }
 window.Editor = Editor;
