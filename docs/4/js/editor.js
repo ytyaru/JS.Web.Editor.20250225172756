@@ -226,8 +226,8 @@ console.timeEnd('T');`,
 //        document.querySelector(`#web-editor-${this._idNo} *[name="result"]`).width = W;
     }
     #makeLog(width, height, attrs={}){return van.tags.textarea({name:'log', style:`resize:none;box-sizing:content-box;width:98%;height:${height};padding:0;margin:0;`, ...attrs})}
-    #makeRes(width, height, attrs={}){console.log(attrs);return van.tags.div({name:'result', style:`box-sizing:content-box;height:${height};padding:0;margin:0;border:1px solid black;`, ...attrs})}
-    #makeDoc(width, height, attrs={}){return van.tags.div({name:'document', style:`box-sizing:content-box;height:${height};padding:0;margin:0;border:1px solid black;`, ...attrs},'this._options.docをmarkdownとしてパースした結果を入れる')}
+    #makeRes(width, height, attrs={}){console.log(attrs);return van.tags.div({name:'result', style:`box-sizing:content-box;height:${height};padding:0;margin:0;border:1px solid black;overflow:auto;`, ...attrs})}
+    #makeDoc(width, height, attrs={}){return van.tags.div({name:'document', style:`box-sizing:content-box;height:${height};padding:0;margin:0;border:1px solid black;overflow:auto;`, ...attrs},'this._options.docをmarkdownとしてパースした結果を入れる')}
     //#makeAttrObj(name) {return 'switch'===this._options.result.method ? ({onclick:()=>this.#switchResult((this._resultName=name))}) : ({}); }
     #makeAttrObj(name) {return 'switch'===this._options.result.method ? ({onclick:()=>{console.log('click:',name);this.#switchResult((this._resultName=name))}}) : ({}); }
     //#makeResDiv(width='100%', height='99vh') {
