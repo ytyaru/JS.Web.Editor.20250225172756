@@ -343,7 +343,8 @@ console.timeEnd('T');`,
 //        this.#switchResult(0 < LOG.value.length);
     }
     #jsBuild(jsCode) {//外部送信禁止（セキュリティ）ただしHTMLで<script>を使いFETCH=fetch;等とされたら対策できない。
-        return (new Function('fetch', 'XMLHttpRequest', 'console', jsCode))(null,null,this._console);
+        return (new Function('fetch', 'XMLHttpRequest', 'console', 'document', jsCode))(null,null,this._console,this.result);
+        //return (new Function('fetch', 'XMLHttpRequest', 'console', jsCode))(null,null,this._console);
     }
     //#jsBuild(jsCode) {return (new Function('fetch', 'XMLHttpRequest', jsCode))(null,null);}//外部送信禁止（セキュリティ）
     //#jsBuild(jsCode) {return (new Function(jsCode))();}

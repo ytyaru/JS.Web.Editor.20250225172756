@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     const editor2 = new Editor({width:'50%', height:300, q:'#editor-1'});
     const editor3 = new Editor({width:'100%', height:300, q:'#editor-2', result:{target:'log res doc',method:'switch'}});
     const editor4 = new Editor({width:'50%', height:300, q:'#editor-3', row:2});
+    const editor5 = new Editor({width:'100%', height:300, q:'#editor-4', row:2, result:{target:'log res doc',method:'switch'}});
 });
 window.addEventListener('beforeunload', (event) => {
     console.log('beforeunload!!');
