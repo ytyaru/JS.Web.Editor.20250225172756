@@ -173,6 +173,7 @@ console.timeEnd('T');`,
             : this.#makeGridDiv(1, children.length)
     }
     #makeLayoutDiv(width, height) {// 画面分割用Div
+        console.log(width, height)
         /*
         const W = this._options.width;
         const H = this._options.height;
@@ -188,6 +189,8 @@ console.timeEnd('T');`,
         main.style.cssText += `;width:${width};height:${height};padding:0;margin:0;`//border:solid black 1px;
         //main.style.cssText = `${main.style.cssText};width:${width};height:${height};border:solid black 1px;padding:0;margin:0;`
         console.log(`${main.style.cssText}`)
+        console.log(width, height)
+        console.log(height)
         if (1===children.length){
             //main.append(...this.#make(width, height));
             const [col, row, lastRowCol] = this.#calcColRow();
@@ -195,21 +198,34 @@ console.timeEnd('T');`,
         }
         else {
             const [col, row, lastRowCol] = this.#calcColRow();
+            console.log(width);
+            console.log(height);
+            console.log(width, height);
             const els = this.#make(width, height);
             //const height = -1===lastRowCol ? `calc(${height} / ${row})` : `calc(${height} / ${row+1})`
-            const height = `calc(${height} / ${row + (-1===lastRowCol ? 0 : 1)})`;
+            //const height = `calc(${height} / ${row + (-1===lastRowCol ? 0 : 1)})`;
+            const HEIGHT = `calc(${height} / ${row + (-1===lastRowCol ? 0 : 1)})`;
             console.log(els)
+            let elId = 0;
             for (let r=0; r<row; r++) {
                 for (let c=0; c<col; c++) {
-                    els[c * (r+1)].style.height = height;
-                    children[r].appendChild(els[c * (r+1)])
+                    console.log('num:',c * (r+1))
+//                    els[c * (r+1)].style.height = HEIGHT;
+//                    children[r].appendChild(els[c * (r+1)])
+                    console.log('num:',elId)
+                    els[elId].style.height = HEIGHT;
+                    children[r].appendChild(els[elId])
+                    elId++;
                 }
             }
             //for (let c=0; c<lastRowCol; c++) {children[children.length-1].appendChild(els[c + ((col*row)+1)])}
             for (let c=0; c<lastRowCol; c++) {
                 console.log(c + ((col*row)+1))
-                els[c + ((col*row)+1)].style.height = height;
-                children[children.length-1].appendChild(els[c + ((col*row)+1)])
+//                els[c + ((col*row)+1)].style.height = HEIGHT;
+//                children[children.length-1].appendChild(els[c + ((col*row)+1)])
+                els[elId].style.height = HEIGHT;
+                children[children.length-1].appendChild(els[elId])
+                elId++;
             }
             main.append(...children);
         }
