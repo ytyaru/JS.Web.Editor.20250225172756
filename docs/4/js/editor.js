@@ -184,7 +184,8 @@ console.timeEnd('T');`,
         const main = this.#makeMainGridLayout(children);
         main.id = this.#id;
         console.log(main)
-        main.style.cssText += `;width:${width};height:${height};border:solid black 1px;padding:0;margin:0;`
+        //main.style.cssText += `;width:${width};height:${height};border:solid black 1px;padding:0;margin:0;`
+        main.style.cssText += `;width:${width};height:${height};padding:0;margin:0;`//border:solid black 1px;
         //main.style.cssText = `${main.style.cssText};width:${width};height:${height};border:solid black 1px;padding:0;margin:0;`
         console.log(`${main.style.cssText}`)
         if (1===children.length){
@@ -225,7 +226,7 @@ console.timeEnd('T');`,
 //        //document.querySelector(`#web-editor-result`).width = W;
 //        document.querySelector(`#web-editor-${this._idNo} *[name="result"]`).width = W;
     }
-    #makeLog(width, height, attrs={}){return van.tags.textarea({name:'log', style:`resize:none;box-sizing:content-box;width:98%;height:${height};padding:0;margin:0;`, ...attrs})}
+    #makeLog(width, height, attrs={}){return van.tags.textarea({name:'log', style:`resize:none;box-sizing:content-box;width:100%;height:${height};padding:0;margin:0;`, ...attrs})}
     #makeRes(width, height, attrs={}){console.log(attrs);return van.tags.div({name:'result', style:`box-sizing:content-box;height:${height};padding:0;margin:0;border:1px solid black;overflow:auto;`, ...attrs})}
     #makeDoc(width, height, attrs={}){return van.tags.div({name:'document', style:`box-sizing:content-box;height:${height};padding:0;margin:0;border:1px solid black;overflow:auto;`, ...attrs},'this._options.docをmarkdownとしてパースした結果を入れる')}
     //#makeAttrObj(name) {return 'switch'===this._options.result.method ? ({onclick:()=>this.#switchResult((this._resultName=name))}) : ({}); }
