@@ -162,6 +162,12 @@ alert('Hello JavaScript');
             ? children[0]
             : this.#makeGridDiv(1, children.length)
     }
+    #getEl(els, name) {
+        //els.filter(el=>el.getAttribute('name')===elNames[elId])[0]
+        const a = els.filter(el=>el.getAttribute('name')===name)[0];
+        const b = els.filter(el=>[...el.children].filter(child=>child.getAttribute('name')===name)[0]).filter(v=>v)[0];
+        return a ?? b
+    }
     #makeLayoutDiv(width, height) {// 画面分割用Div
         console.log(width, height)
         const children = this.#makeChildGridLayout(width, height);
@@ -198,7 +204,8 @@ alert('Hello JavaScript');
 //                    els[elId].style.height = HEIGHT;
                     //children[r].appendChild(els[elId])
                     //children[r].appendChild(els.filter(el=>el.name===elNames[elId])[0])
-                    children[r].appendChild(els.filter(el=>el.getAttribute('name')===elNames[elId])[0])
+                    //children[r].appendChild(els.filter(el=>el.getAttribute('name')===elNames[elId])[0])
+                    children[r].appendChild(this.#getEl(els, elNames[elId]));
                     elId++;
                 }
             }
@@ -209,7 +216,8 @@ alert('Hello JavaScript');
                 console.log(elNames[elId], els.filter(el=>el.name===elNames[elId])[0]);
                 console.log(elNames[elId], els.filter(el=>el.getAttribute('name')===elNames[elId])[0]);
                 //children[children.length-1].appendChild(els.filter(el=>el.name===elNames[elId])[0])
-                children[children.length-1].appendChild(els.filter(el=>el.getAttribute('name')===elNames[elId])[0])
+                //children[children.length-1].appendChild(els.filter(el=>el.getAttribute('name')===elNames[elId])[0])
+                children[children.length-1].appendChild(this.#getEl(els, elNames[elId]))
                 elId++;
             }
             main.append(...children);
