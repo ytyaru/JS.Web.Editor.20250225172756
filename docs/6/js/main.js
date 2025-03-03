@@ -29,6 +29,14 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         R.style.setProperty('--color-a-active', C.a.active);
         R.style.setProperty('--color-a-focus', C.a.focus);
         console.log('--color-select-back:', getComputedStyle(R).getPropertyValue('--color-select-back'))
+        // hljsのCSS切替
+        if ('dark'===e.target.value) {
+            document.querySelector(`link[title="light"]`).disabled = true;
+            document.querySelector(`link[title="dark"]`).disabled = false;
+        } else {
+            document.querySelector(`link[title="light"]`).disabled = false;
+            document.querySelector(`link[title="dark"]`).disabled = true;
+        }
     });
 
     const editor1 = new Editor({width:'100%', height:300, q:'#editor-0'});
