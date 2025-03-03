@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Ace Editor sample</title>
+</head>
+<body>
+  <div id="editor" style="height: 600px"></div>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ace.js"></script>-->
+
+
+
+  <script src="ace.min.js"></script>
+  <script>window.define = ace.define;</script>
+  <script src="theme-monokai.min.js"></script>
+  <script src="theme-cloud9_day.min.js"></script>
+  <script src="mode-javascript.min.js"></script>
+  <script src="mode-css.min.js"></script>
+  <script src="mode-html.min.js"></script>
+  <script src="ext-themelist.min.js"></script>
+    
+  
+  <script>
+    const editor = ace.edit("editor");
+    ace.config.set('basePath', './')
+    console.log(editor);
+    editor.focus();
+    editor.navigateFileEnd();
+
+    //editor.setTheme("ace/theme/monokai");
+    editor.setTheme("ace/theme/monokai");
+//    editor.setTheme("theme-cloud9_day.min.js");
+//    editor.setTheme("theme-monokai.min.js");
+
+    editor.setFontSize(14);
+    //editor.getSession().setMode("ace/mode/html");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setUseWrapMode(true);
+    editor.getSession().setTabSize(2);
+    /*
+theme-cloud9_day.min.js
+mode-javascript.min.js
+mode-css.min.js
+mode-html.min.js
+    */
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="../../../docs/lib/highlight/11.10.0/styles/a11y-light.min.css" title="light">
+<link rel="stylesheet" href="../../../docs/lib/highlight/11.10.0/styles/a11y-dark.min.css"  title="dark" disabled>
+<style>
+pre {white-space: pre-wrap;}
+pre code {white-space: pre-wrap;}
+</style>
+<script src="../../../docs/lib/highlight/11.10.0/min.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', async(event)=>{
+    function enterKey(e) {
+        console.log('keydown:', e.key)
+        if('Enter'===e.key){ // デフォルトはdiv追加。Shift+Enterなら改行。でも両方とも改行にしたい。
+            event.preventDefault();
+            console.log(e.target.innerText);
+            //e.target.innerText = e.target.innerText;
+//            e.target.innerHTML = e.target.innerText.split('\n').join('<br>');
+        }
+    }
+    function addZeroWidthSpace(e){
+        if( e.key === 'Enter' && !e.shiftKey ){ 
+            e.stopPropagation();
+            e.preventDefault();
+
+            let selection = window.getSelection(),
+            range = selection.getRangeAt(0),
+            newline = document.createTextNode('\u200B'),//零幅スペース
+            br = document.createElement('br');
+
+            range.deleteContents();
+            range.insertNode(newline);
+
+            range.insertNode(br);
+
+            range.setStartAfter(br);
+            range.setEndAfter(br);
+
+            range.collapse(false);
+
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+    for (let el of document.querySelectorAll(`*[contenteditable]`)) {
+        //el.addEventListener('DOMContentLoaded', (e)=>addZeroWidthSpace(e));
+        el.addEventListener('keydown', (e)=>enterKey(e));
+        console.log(el)
+    }
+    //document.querySelector(`code`).addEventListener('input', async(e)=>{
+    //document.querySelector(`code`).addEventListener('input', async(e)=>{
+    //document.querySelector(`code`).addEventListener('focusout', async(e)=>{
+    document.querySelector(`code`).addEventListener('focusout', async(e)=>{
+        console.log(e);
+        console.log(e.target.innerText);
+//        e.target.innerHTML = e.target.innerHTML;
+//        e.target.innerText = e.target.innerText;
+//        e.target.innerHTML = e.target.innerText.split('\n').join('<br/>');
+        delete e.target.dataset.highlighted;
+        e.target.className = '';
+//        e.target.dataset.highlighted = 'no';
+//        data-highlighted
+//        hljs.highlightElement(e.target);
+        hljs.highlightAll();
+    });
+    for (let el of document.querySelectorAll(`pre`)) {
+        if (!el || el.querySelector('code')){continue}
+        console.log(el);
+        el.addEventListener('focusout', async(e)=>{
+//            e.target.innerText = e.target.innerText;
+//            e.target.innerHTML = e.target.innerText.split('\n').join('<br/>');
+            delete e.target.dataset.highlighted;
+            hljs.highlightElement(e.target);
+        });
+    }
+    hljs.highlightAll();
+    for (let el of document.querySelectorAll(`pre`)) {
+        console.log(el)
+        if (el.querySelector('code')){continue}
+        hljs.highlightElement(el);
+    }
+
+    console.log(document.querySelector(`pre code`).innerText);
+});
+</script>
+<pre><code contenteditable>alert('pre-code');
+alert('pre-code');
+</code></pre>
+
+<pre contenteditable>
+console.log('pre');
+console.log('pre');
+</pre>
