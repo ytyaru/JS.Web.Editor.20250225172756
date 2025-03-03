@@ -1,0 +1,30 @@
+@charset "utf-8";
+:root {
+    --color-fore:#000000;
+    --color-back:#FFFFFF;
+    --color-fore-select:#FFFFFF;
+    --color-back-select:#4488FF;
+    --color-a-link:#0000AA;
+    --color-a-visited:#AA00AA;
+    --color-a-hover:#0000FF;
+    --color-a-active:#00FFFF;
+    --color-a-focus:#0000FF;
+}
+div[name="editor"] *[name="src"],
+div[name="editor"] *[name="dst"]
+{
+    color: var(--color-fore);
+    background-color: var(--color-back);
+}
+div[name="editor"] *[name="src"]::selection, 
+div[name="editor"] *[name="dst"]::selection
+{
+    color: var(--color-fore-select);
+    background-color: var(--color-back-select);
+}
+div[name="editor"] *[name="dst"] a:link {color:var(--color-a-link);}
+div[name="editor"] *[name="dst"] a:visited {color:var(--color-a-visited);}
+div[name="editor"] *[name="dst"] a:hover {color:var(--color-a-hover);}
+div[name="editor"] *[name="dst"] a:active {color:var(--color-a-active);}
+div[name="editor"] *[name="dst"] a:focus {color:var(--color-a-focus);}
+

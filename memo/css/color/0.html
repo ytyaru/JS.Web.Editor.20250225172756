@@ -1,0 +1,23 @@
+<style>
+:root {
+    --color-fore:#000000;
+    --color-back:#FFFFFF;
+    --color-fore-select:#FFFFFF;
+    --color-back-select:#4488FF;
+}
+div[name="editor"] *[name="src"],
+div[name="editor"] *[name="dst"]
+{
+    color: var(--color-fore);
+    background-color: var(--color-back);
+}
+::selection {
+    color: var(--color-fore-select);
+    background-color: var(--color-back-select);
+}
+</style>
+
+<div name="editor">
+    <textarea name="src">テキストエリア。</textarea>
+    <div name="dst">Div要素。</div>
+</div>

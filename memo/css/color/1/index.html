@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="color.css">
+<script>
+window.addEventListener('DOMContentLoaded', async(event)=>{
+    const colors = {
+        light: {b:'#FFFFFF', f:'#000000',
+            selection:{b:'#4488FF', f:'#FFFFFF'},
+            a:{link:'#0000AA', visited:'#AA00AA', hover:'#0000FF', active:'#00FFFF', focus:'#0000FF'},
+        },
+        smoke: {b:'#CCCCCC', f:'#000000',
+            selection:{b:'#4488FF', f:'#FFFFFF'},
+            a:{link:'#0000AA', visited:'#AA00AA', hover:'#0000FF', active:'#00FFFF', focus:'#0000FF'},
+        },
+        dark: {b:'#000000', f:'#FFFFFF',
+            selection:{b:'#FF8844', f:'#FFFFFF'},
+            a:{link:'#AAAA00', visited:'#00AA00', hover:'#FFFF00', active:'#FF0000', focus:'#FFFF00'},
+        },
+    }
+    document.querySelector('#color-scheme').addEventListener('input', async(e)=>{
+        console.log(e.target.value)
+        const C = colors[e.target.value];
+        const R = document.querySelector(':root');
+        R.style.setProperty('--color-fore', C.f);
+        R.style.setProperty('--color-back', C.b);
+        R.style.setProperty('--color-select-fore', C.selection.f);
+        R.style.setProperty('--color-select-back', C.selection.b);
+        R.style.setProperty('--color-a-link', C.a.link);
+        R.style.setProperty('--color-a-visited', C.a.visited);
+        R.style.setProperty('--color-a-hover', C.a.hover);
+        R.style.setProperty('--color-a-active', C.a.active);
+        R.style.setProperty('--color-a-focus', C.a.focus);
+    });
+});
+</script>
+<div name="editor">
+    <select id="color-scheme">
+        <option value="light">Light</option>
+        <option value="smoke">Smoke</option>
+        <option value="dark">Dark</option>
+    </select>
+    <textarea name="src">テキストエリア。</textarea>
+    <div name="dst">Div要素。</div>
+</div>
+
+
