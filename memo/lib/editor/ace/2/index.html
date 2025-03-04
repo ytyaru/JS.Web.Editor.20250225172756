@@ -6,21 +6,6 @@
 </head>
 <body>
   <div id="editor" style="height: 600px"></div>
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ace.js"></script>-->
-
-
-    <!--
-  <script src="ace.min.js"></script>
-  <script>window.define = ace.define;</script>
-  <script src="theme-monokai.min.js"></script>
-  <script src="theme-cloud9_day.min.js"></script>
-  <script src="mode-javascript.min.js"></script>
-  <script src="mode-css.min.js"></script>
-  <script src="mode-html.min.js"></script>
-  <script src="mode-markdown.min.js"></script>
-  <script src="ext-themelist.min.js"></script>
-    -->
-
   <script src="../../../../../docs/lib/ace/1.9.6/ace.min.js"></script>
   <script>window.define = ace.define;</script>
   <script src="../../../../../docs/lib/ace/1.9.6/mode/markdown.min.js"></script>
@@ -42,7 +27,11 @@
   <script>
     const editor = ace.edit("editor");
     console.log(editor);
-    ace.config.set('basePath', './')
+//    ace.config.set('basePath', './')
+    editor.setOptions({
+        showGutter: false, // editor.setHighlightGutterLine(false)
+        showLineNumbers: false, // 
+    });
     ace.config.loadModule('ace/ext/themelist', (e)=>{
         console.log(e);
         const lights = e.themes.filter(t=>!t.isDark)
