@@ -29,6 +29,7 @@
     console.log(editor);
 //    ace.config.set('basePath', './')
     editor.setOptions({
+        value: `alert('Hello JavaScript !!');`,
         showGutter: false, // editor.setHighlightGutterLine(false)
         showLineNumbers: false, // 
     });
@@ -54,6 +55,29 @@
     editor.getSession().setUseWrapMode(true);
     editor.getSession().setTabSize(2);
     console.log(editor.getSession());
+
+    /*
+    editor.on('input', (e, EDITOR)=>{
+        console.log('input:', e, EDITOR);
+        console.log(EDITOR.getValue());
+        console.log(EDITOR.value);
+    })
+    */
+    editor.on('change', (e, EDITOR)=>{
+        console.log('change:', e);
+        console.log(EDITOR.getValue());
+        console.log(EDITOR.value);
+        console.log(EDITOR);
+        console.log(EDITOR.id);
+        console.log(EDITOR.name);
+    })
+    /*
+    editor.addEventListener('input', async(e)=>{
+        console.log(e);
+        console.log(e.target);
+        console.log(e.target.value);
+    })
+    */
     /*
 theme-cloud9_day.min.js
 mode-javascript.min.js
