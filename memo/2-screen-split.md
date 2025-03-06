@@ -201,8 +201,22 @@ new Editor({
     show:['html css js', 'log res'],
     show:['html', 'css', 'js', 'log res'],
     show:'html-css-js log-res', // switchする画面はハイフンでつなげ、分割する画面はスペースで区切る
-    show:'html css js log-res', // switchする画面はハイフンでつなげ、分割する画面はスペースで区切る
+    show:'html css js log-res',
 ```
+
+　また、`rows`,`cols`の記法だと<table>のセル結合のようなことができない。これをGridLayoutでやろうとするとややこしいことになる。
+
+　レイアウトはなるだけ単純化したほうがいいかもしれない。
+
+* 1画面
+* 2画面
+* 3画面
+* 4画面
+* 5画面
+
+　html,cssにフォーカスがある時はresを、jsにフォーカスがある時はlogを表示する。これにてswitchするように固定する。
+　html,css,jsが全部あるときはこの表示方法で固定し、4画面分割とする。
+　これなら5画面を考慮せずに済む。あるいは5画面にしたいならその構成パターンを限定する。3x2に。
 
 ## 1画面
 

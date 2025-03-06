@@ -1,0 +1,77 @@
+<style>:root {--rows:1; --cols:5;}</style>
+<select id="RxC">
+    <option value="1x5">1x5</option>
+    <option value="2x3">2x3</option>
+    <option value="3x2">3x2</option>
+    <option value="5x1">5x1</option>
+</select>
+<div id="editor-0" style="display:grid;grid-template-rows:repeat(var(--rows), 1fr);grid-template-columns:repeat(var(--cols), 1fr);grid-column-gap:0;grid-row-gap:0;">
+    <textarea name="html" style="resize:none;"></textarea>
+    <textarea name="css" style="resize:none;"></textarea>
+    <textarea name="js" style="resize:none;"></textarea>
+    <textarea name="log" style="resize:none;"></textarea>
+    <textarea name="res" style="resize:none;"></textarea>
+</div>
+<script>
+const editor = document.querySelector('#editor-0');
+const RC = document.querySelector('#RxC');
+RC.addEventListener('change', async(e) => {
+    const ROOT = document.querySelector(':root');
+    const [rows, cols] = e.target.value.split('x').map(v=>parseInt(v));
+    ROOT.style.setProperty('--rows', `${rows}`);
+    ROOT.style.setProperty('--cols', `${cols}`);
+    /*
+     最終行の列が端数なら（対処法はいくつかある。以下はその一例）
+     1. 最後の要素だけ端まで伸ばす
+     2. 最終行の要素も等分する（他の行より大きめ。行と列の最大公倍数で列を等分する？計算方法が判らない）
+     3. GridLayoutを入れ子にする（計算不要。親はrowだけ、入れ子はcolだけを設定する）
+     */
+    // 最終行の列が端数なら
+    const fraction = ((rows * cols) % editor.children.length);
+    console.log(`fraction:${fraction}`)
+    // 最終行の列が端数かつ1なら（端まで伸ばす）
+    // 最終行の列が端数かつ1より大きい偶数個なら（等分する）
+    // 最終行の列が端数かつ1より大きい奇数個なら（等分する。gridTemplateColumnを2倍にして偶数化し、auto列をspan 2化する必要有り）
+    if (1===fraction) {
+        // 最後の要素だけ端まで伸ばす
+        const lastEl = editor.children[editor.children.length-1];
+        if (0 !== fraction) {lastEl.style.gridColumnStart=`${cols - fraction}`;lastEl.style.gridColumnEnd=`span ${fraction + 1}`}
+        else {lastEl.style.gridColumn=`auto`;}
+    } else if (0===(cols%2)) {
+        // どうすればいい？
+    } else {
+        // どうすればいい？　ここが一番難しい
+    }
+
+
+    // 最終行の列が端数かつ最大列数が奇数なら
+    const colSpan = (0!==fraction && 1===(cols % 2)) ? 2 : 1;
+//    if (0!==fraction && 1===(cols % 2)) {cols*=2}
+    if (1===colSpan) {
+        for(let el of editor.children) {el.style.gridColumn = `auto`;}
+        const lastEl = editor.children[editor.children.length-1];
+        if (0 !== fraction) {lastEl.style.gridColumnStart=`${cols - fraction}`;lastEl.style.gridColumnEnd=`span ${fraction + 1}`}
+        else {lastEl.style.gridColumn=`auto`;}
+    } else {
+
+    }
+
+    // 行と列の最小公倍数で列を等分する
+    const gcd = (a, b) => {//最大公約数
+        if (b === 0) {return a;}
+        return gcd(b, a % b);
+    };
+    const lcm = (a, b) => a * b / gcd(a, b); //最小公倍数
+    console.log(`RxC:${rows}:${cols}`)
+    console.log(`最大公約数:${gcd(rows,cols)}`);
+    console.log(`最小公倍数:${lcm(rows,cols)}`);
+
+    /*
+    // 最後の要素だけ端まで伸ばす
+    const lastEl = editor.children[editor.children.length-1];
+    if (0 !== fraction) {lastEl.style.gridColumnStart=`${cols - fraction}`;lastEl.style.gridColumnEnd=`span ${fraction + 1}`}
+    else {lastEl.style.gridColumn=`auto`;}
+    */
+});
+RC.focus();
+</script>

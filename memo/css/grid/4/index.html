@@ -1,0 +1,43 @@
+<style>:root {--rows:1; --cols:5;}</style>
+<select id="RxC">
+    <option value="1x5">1x5</option>
+    <option value="2x3">2x3</option>
+    <option value="3x2">3x2</option>
+    <option value="5x1">5x1</option>
+</select>
+<!--<div id="editor-0" style="display:grid;grid-template-rows:repeat(var(--rows), 1fr);grid-template-columns:repeat(var(--cols), 1fr);grid-column-gap:0;grid-row-gap:0;">-->
+<div id="editor-0" style="display:grid;grid-column-gap:0;grid-row-gap:0;">
+    <textarea name="html" style="resize:none;grid-area:html;"></textarea>
+    <textarea name="css" style="resize:none;grid-area:css;"></textarea>
+    <textarea name="js" style="resize:none;grid-area:js;"></textarea>
+    <textarea name="log" style="resize:none;grid-area:log;"></textarea>
+    <textarea name="res" style="resize:none;grid-area:res;"></textarea>
+</div>
+<script>
+const areas = {
+    '1x5':`"html css js log res"`,
+    '2x3':`
+        "html css"
+        "js js"
+        "log res"
+`,
+    '3x2':`
+        "html html css css js js"
+        "log log log res res res"
+`,
+    '5x1':`
+        "html"
+        "css"
+        "js"
+        "log"
+        "res"
+`,
+}
+const editor = document.querySelector('#editor-0');
+const RC = document.querySelector('#RxC');
+RC.addEventListener('change', async(e) => {
+    editor.style.gridTemplateAreas = areas[e.target.value];
+});
+RC.dispatchEvent(new Event('change'));
+RC.focus();
+</script>
