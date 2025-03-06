@@ -1,0 +1,31 @@
+<style>:root {--rows:1; --cols:5;}</style>
+<select id="RxC">
+    <option value="1x5">1x5</option>
+    <option value="2x3">2x3</option>
+    <option value="3x2">3x2</option>
+    <option value="5x1">5x1</option>
+</select>
+<div id="editor-0" style="display:grid;grid-template-rows:repeat(var(--rows), 1fr);grid-template-columns:repeat(var(--cols), 1fr);grid-column-gap:0;grid-row-gap:0;">
+    <textarea name="html" style="resize:none;"></textarea>
+    <textarea name="css" style="resize:none;"></textarea>
+    <textarea name="js" style="resize:none;"></textarea>
+    <textarea name="log" style="resize:none;"></textarea>
+    <textarea name="res" style="resize:none;"></textarea>
+</div>
+<script>
+const editor = document.querySelector('#editor-0');
+const RC = document.querySelector('#RxC');
+RC.addEventListener('change', async(e) => {
+    const ROOT = document.querySelector(':root');
+    const [rows, cols] = e.target.value.split('x').map(v=>parseInt(v));
+    ROOT.style.setProperty('--rows', `${rows}`);
+    ROOT.style.setProperty('--cols', `${cols}`);
+    // 端数がある場合
+    const fraction = ((rows * cols) % editor.children.length);
+    const lastEl = editor.children[editor.children.length-1];
+    console.log(`fraction:${fraction}`)
+    if (0 !== fraction) {lastEl.style.gridColumnStart=`${cols - fraction}`;lastEl.style.gridColumnEnd=`span ${fraction + 1}`}// 最後の要素だけ端まで伸ばす
+    else {lastEl.style.gridColumn=`auto`;}
+});
+RC.focus();
+</script>

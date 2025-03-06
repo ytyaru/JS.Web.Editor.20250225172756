@@ -48,7 +48,6 @@
 * どんな方法で
 * いくつまで
 
-
 ## WebEditor(html,css,js,log,res)
 
 　全部で5画面ある。この表示パターンを網羅する。
@@ -185,6 +184,24 @@ new Editor({
 new Editor({
     switchScreen: 'tap', 'tap/click'/'double-tap/click'/'hold'/'menu'
 });
+```
+
+　switch画面の指定方法はどうするか。複雑な場合、以下のように文字列の配列をつくらねばならず少々面倒。
+
+```javascript
+new Editor({
+    show:['html', 'css', 'js', 'log res'],
+    rows: 2,
+    cols: '2 2', // N行目の列数
+});
+```
+
+```javascript
+    show:'html css js log res',
+    show:['html css js', 'log res'],
+    show:['html', 'css', 'js', 'log res'],
+    show:'html-css-js log-res', // switchする画面はハイフンでつなげ、分割する画面はスペースで区切る
+    show:'html css js log-res', // switchする画面はハイフンでつなげ、分割する画面はスペースで区切る
 ```
 
 ## 1画面
