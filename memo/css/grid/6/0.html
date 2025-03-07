@@ -1,0 +1,39 @@
+<style>
+#editor-0 {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+        "html css css css"
+        "html js  js  res"
+        "html js  js  res"
+        "log  log log res"
+    ;
+    /*
+    */
+    /*
+    */
+    /*
+    grid-template-areas:
+        "html css css css"
+        "html js  js  res"
+        "log  log log res"
+    ;
+    grid-template-rows: 1fr 2fr 1fr;
+    */
+}
+/*
+textarea[name="html"],
+textarea[name="js"],
+textarea[name="res"] { grid-row: 1 / span 2; }
+*/
+</style>
+<div id="editor-0">
+    <textarea name="html" style="resize:none;grid-area:html;">html</textarea>
+    <textarea name="css" style="resize:none;grid-area:css;">css</textarea>
+    <textarea name="js" style="resize:none;grid-area:js;">js</textarea>
+    <textarea name="log" style="resize:none;grid-area:log;">log</textarea>
+    <textarea name="res" style="resize:none;grid-area:res;">res</textarea>
+</div>
+<script>
+</script>

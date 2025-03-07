@@ -282,3 +282,103 @@ const editor1 = new Editor({
 });
 ```
 
+
+
+
+
+
+## 画面配置パターン
+
+* 5画面(html,css,js,log,res)
+    * 1x5
+    * 2x3
+    * 3x2
+    * 5x1
+    * 4x4(windmill(風車型(面積をほぼ同一に近づけた矩形の組合せ)))
+* 2画面(切替式)
+
+### 5画面
+
+#### 1x5
+
+```css
+grid-template-rows: repeat(1, 1fr);
+grid-template-columns: repeat(5, 1fr);
+grid-template-areas: "html css js log res";
+```
+
+#### 2x3
+
+```css
+grid-template-rows: repeat(2, 1fr);
+grid-template-columns: repeat(3, 1fr);
+grid-template-areas:
+    "html html css css js  js"
+    "log  log  log res res res"
+;
+```
+
+#### 3x2
+
+```css
+grid-template-rows: repeat(3, 1fr);
+grid-template-columns: repeat(2, 1fr);
+grid-template-areas:
+    "html css"
+    "js   js"
+    "log  res"
+;
+```
+
+#### 5x1
+
+```css
+grid-template-rows: repeat(5, 1fr);
+grid-template-columns: repeat(1, 1fr);
+grid-template-areas:
+    "html"
+    "css"
+    "js"
+    "log"
+    "res"
+;
+```
+
+#### windmill(4x4)
+
+```css
+grid-template-rows: repeat(4, 1fr);
+grid-template-columns: repeat(4, 1fr);
+grid-template-areas:
+    "html css css css"
+    "html js  js  res"
+    "html js  js  res"
+    "log  log log res"
+;
+```
+
+### 2画面(切替式)
+
+　ディスプレイの表示面積を節約するため一つの場所に複数画面のうち一つだけを表示する。どの画面を表示するかはラジオボタン等で切り替える。
+
+#### 1x2
+
+```css
+grid-template-rows: repeat(1, 1fr);
+grid-template-columns: repeat(2, 1fr);
+grid-template-areas: "html/css/js log/res";
+```
+
+#### 2x1
+
+```css
+grid-template-rows: repeat(2, 1fr);
+grid-template-columns: repeat(1, 1fr);
+grid-template-areas:
+    "html/css/js"
+    "log/res"
+;
+```
+
+
+

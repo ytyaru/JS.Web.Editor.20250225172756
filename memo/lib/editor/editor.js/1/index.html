@@ -1,0 +1,32 @@
+<h1>Editor.js</h1>
+<button id="get">入力データ取得</button>
+<textarea id="view-data"></textarea>
+<div id="editor-0"></div>
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@calumk/editorjs-codeflask@latest"></script>
+-->
+<script src="../../../../../docs/lib/editor.js/2.30.8/min.js"></script>
+<script src="../../../../../docs/lib/editor.js/tools/codeflask/1.0.10/min.js"></script>
+<script>
+const editorJS = new EditorJS({
+    holder:'editor-0',
+    tools: {
+        code : editorjsCodeflask,
+    },
+});
+const getButton = document.querySelector('#get');
+getButton.addEventListener('click', async(e)=>{
+  editorJS
+    .save()
+    .then((outputData) => {
+        console.log("input Data ", outputData);
+        const codes = outputData.blocks.filter(b=>'code'===b.type).map(b=>b.data.code);
+        console.log(codes)
+        document.querySelector('#view-data').value = codes.join('\n\n--------');
+    })
+    .catch((error) => {
+        console.log("failed: ", error);
+    });
+});
+</script>

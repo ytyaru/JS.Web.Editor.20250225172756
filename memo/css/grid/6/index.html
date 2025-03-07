@@ -1,0 +1,148 @@
+<style>:root {--rows:1; --cols:5;}</style>
+<fieldset style="display:inline-block;"><legend>show</legend>
+<label><input name="show" value="html" type="checkbox" checked>html</label>
+<label><input name="show" value="css" type="checkbox" checked>css</label>
+<label><input name="show" value="js" type="checkbox" checked>js</label>
+<label><input name="show" value="log" type="checkbox" checked>log</label>
+<label><input name="show" value="res" type="checkbox" checked>res</label>
+</fieldset>
+<fieldset style="display:inline-block;"><legend>switch</legend>
+<label><input id="switchSource" name="switchSource" type="checkbox" checked>switchSource</label>
+<label><input id="switchDestination" name="switchDestination" type="checkbox" checked>switchDestination</label>
+</fieldset>
+<select id="RxC">
+    <option value="1x5">1x5</option>
+    <option value="2x3">2x3</option>
+    <option value="3x2">3x2</option>
+    <option value="5x1">5x1</option>
+</select>
+<!--<div id="editor-0" style="display:grid;grid-template-rows:repeat(var(--rows), 1fr);grid-template-columns:repeat(var(--cols), 1fr);grid-column-gap:0;grid-row-gap:0;">-->
+<div id="editor-0" style="display:grid;grid-column-gap:0;grid-row-gap:0;">
+    <textarea name="html" style="resize:none;grid-area:html;"></textarea>
+    <textarea name="css" style="resize:none;grid-area:css;"></textarea>
+    <textarea name="js" style="resize:none;grid-area:js;"></textarea>
+    <textarea name="log" style="resize:none;grid-area:log;"></textarea>
+    <textarea name="res" style="resize:none;grid-area:res;"></textarea>
+</div>
+<script>
+function makeColumnAreas(values, s, e) {return `"${values.slice(s, e).join(' ')}"`}
+function makeAreas(checkedValues) {
+//    const checkedValues = [...document.querySelectorAll(`input[name="show"][checked]`)].map(el=>el.value);
+    const l = checkedValues.length;
+    if (l < 1){throw new TypeError(`表示画面数は少なくとも1つ指定してください。`)}
+    const areas = new Map([[`1x${l}`, `"${checkedValues.join(' ')}"`]]);
+//    const areas = [{`1x${l}`:`"${checkedValues.join(' ')}"`}];
+    // 1xL
+    // Lx1
+    // 0===(L%2): HxH
+    // 1===(L%2): AxB,BxA
+    //areas.push({`${l}x1`:checkedValues.map(v=>`"v"`).join('\n')});
+    if (0===(l%2)) {
+        const h = Math.floor(l/2);
+        let [s,e] = [0,h];
+        /*
+        [...Array(h)].map((_,i)=>{
+            checkedValues.slice(s, e)
+            `"${checkedValues.slice(s, e).join(' ')}"`
+        })
+        */
+        [...Array(h)].reduce((a,v,i)=>{
+            a.push(`"${checkedValues.slice(s, e).join(' ')}"`);
+            s = e;
+            e += h;
+        },[])
+        areas.set(`${h}x${h}`, a.join('\n'));
+    }
+    else {
+        const h = Math.floor(l/2);
+        let [s,e] = [0,h];
+        const A = [...Array(h)].reduce((a,v,i)=>{
+            a.push(`"${checkedValues.slice(s, e).join(' ')}"`);
+            s = e;
+            e += h+1;
+        },[]);
+        const B= [...Array(h+1)].reduce((a,v,i)=>{
+            a.push(`"${checkedValues.slice(s, e).join(' ')}"`);
+            s = e;
+            e += h;
+        },[]);
+        areas.set(`${h}x${h+1}`, A.join('\n'));
+        areas.set(`${h+1}x${h}`, B.join('\n'));
+    }
+    areas.set(`${l}x1`, checkedValues.map(v=>`"v"`).join('\n'));
+    return areas;
+}
+const areas = {
+    '1x5':`"html css js log res"`,
+    '2x3':`
+        "html css"
+        "js js"
+        "log res"
+`,
+    '3x2':`
+        "html html css css js js"
+        "log log log res res res"
+`,
+    '5x1':`
+        "html"
+        "css"
+        "js"
+        "log"
+        "res"
+`,
+}
+/*
+    '1x4':`"html css js dst"`,
+    '2x2':`
+        "html css",
+        "js dst"
+`,
+    '4x1':`
+        "html"
+        "css"
+        "js"
+        "dst"
+`,
+*/
+/*
+    '1x2':`"src dst"`,
+    '2x1':`
+        "src"
+        "dst"
+`,
+*/
+const editor = document.querySelector('#editor-0');
+const RC = document.querySelector('#RxC');
+RC.addEventListener('change', async(e) => {
+    editor.style.gridTemplateAreas = areas[e.target.value];
+});
+document.querySelector(`#switchDestination`).addEventListener('change', async(e) => {
+    if (e.target.checked) {
+        if(0==='log res'.split(' ').map(n=>document.querySelector(`*[name="${n}"]`).style.display).filter(d=>'none'===d).length) {
+            document.querySelector(`*[name="log"]`).style.display = 'none';
+        }
+    } else {
+        //'log res'.split(' ').map(n=>document.querySelector(`*[name="${n}"]`).display='block')
+        'log res'.split(' ').map(n=>{if('block'!==document.querySelector(`*[name="${n}"]`).style.display){document.querySelector(`*[name="${n}"]`).style.display='block'}})
+    }
+});
+function getNames(e) {
+    //const all = 'html css js log res'.split(' ')
+    const 
+    const checked = [...document.querySelectorAll(`input[name="show"][checked]`)].map(el=>el.value);
+    if (!e) {return checked}
+    else {
+        
+    }
+}
+for (let el of document.querySelectorAll('input[name="show"]')) {
+    el.addEventListener('change', async(e) => {
+        e.target.getAttribute('name')
+        const checkedValues = [...document.querySelectorAll(`input[name="show"][checked]`)].map(el=>el.value);
+        editor.style.gridTemplateAreas = areas[e.target.value];
+        makeAreas();
+    });
+}
+RC.dispatchEvent(new Event('change'));
+RC.focus();
+</script>
